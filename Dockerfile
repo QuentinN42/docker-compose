@@ -1,13 +1,11 @@
-FROM ubuntu
+FROM docker
 
-# install docker
-RUN apt update
-RUN apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-RUN apt update
-RUN apt install -y docker-ce docker-ce-cli containerd.io
+RUN apk add --update --no-cache python3 python3-dev openssl-dev make gcc libffi-dev libc-dev linux-headers && ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
+RUN pip3 install --no-cache --upgrade pip setuptools
+RUN pip3 install docker-compose
 
+RUN mkdir /app
+WORKDIR /app
 
-# install docker compose
-RUN apt install -y docker-compose
+ENTRYPOINT docker-compose up
