@@ -1,0 +1,12 @@
+# all gitignore
+__pycache__/
+.idea
+venv
+.env
+
+# add example and git files
+example/
+.gitignore
+.git
+README.md
+CONTRIBUTING.md
